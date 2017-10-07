@@ -47,8 +47,15 @@ def main(speech_file):
     gcloud_dump = json.dumps(response)
     gcloud_data = json.loads(gcloud_dump)
     tweet_text = gcloud_data['results'][0]['alternatives'][0]['transcript']
-
-    tweet.tweet(tweet_text)
+    
+    print("以下の内容をツイートしますか？")
+    print(tweet_text,"  [y/N]")
+    user_ans = input()
+    if user_ans == 'y':
+      tweet.tweet(tweet_text)
+    else:
+      print("ツイートしませんでした。")
+      exit()
     
 
 
