@@ -1,6 +1,3 @@
-"""Google Cloud Speech API sample application using the REST API for batch
-processing."""
-
 import argparse
 import base64
 import json
@@ -10,24 +7,16 @@ from googleapiclient import discovery
 import httplib2
 from oauth2client.client import GoogleCredentials
 
-DISCOVERY_URL = ('https://{api}.googleapis.com/$discovery/rest?'
-                 'version={apiVersion}')
+DISCOVERY_URL = ('https://{api}.googleapis.com/$discovery/rest?''version={apiVersion}')
 
 def get_speech_service():
-    credentials = GoogleCredentials.get_application_default().create_scoped(
-        ['https://www.googleapis.com/auth/cloud-platform'])
+    credentials = GoogleCredentials.get_application_default().create_scoped(['https://www.googleapis.com/auth/cloud-platform'])
     http = httplib2.Http()
     credentials.authorize(http)
 
-    return discovery.build(
-        'speech', 'v1beta1', http=http, discoveryServiceUrl=DISCOVERY_URL)
+    return discovery.build('speech', 'v1beta1', http=http, discoveryServiceUrl=DISCOVERY_URL)
 
 def main(speech_file):
-    """Transcribe the given audio file.
-
-    Args:
-        speech_file: the name of the audio file.
-    """
     with open(speech_file, 'rb') as speech:
         speech_content = base64.b64encode(speech.read())
 
@@ -61,7 +50,6 @@ def main(speech_file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        'speech_file', help='./tweet.raw')
+    parser.add_argument('speech_file', help='./tweet.raw')
     args = parser.parse_args()
     main(args.speech_file)
